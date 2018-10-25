@@ -1,0 +1,17 @@
+{
+  "name": "hypertest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "trades-set.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.6.1",
+    "hypercore": "^6.20.2",
+    "length-prefixed-message": "^3.0.3",
+    "noise-network": "^1.0.0"
+  }
+}
