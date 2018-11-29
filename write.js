@@ -18,21 +18,27 @@ feed.ready(() => {
 function test (print) {
   const started = Date.now()
   const tenBillion = 10000000000
-  let count = 0
+  let count = feed.length
 
   async.whilst(
     function () { return count < tenBillion },
     function (cb) {
-      const ri = Math.floor(Math.random() * trades.length)
-      const entry = trades[ri]
+      const batch = []
 
-      if (count % 50000000 === 0) {
-        print()
+      while (batch.length < 32768) {
+        const ri = Math.floor(Math.random() * trades.length)
+        const entry = trades[ri]
+
+        batch.push(JSON.stringify(entry))
+
+        if ((count + batch.length) % 50000000 === 0) {
+          print()
+        }
       }
 
-      feed.append(JSON.stringify(entry), (err) => {
+      feed.append(batch, (err) => {
         if (err) return cb(err)
-        count++
+        count += batch.length
         cb(null, count)
       })
     },
