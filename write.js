@@ -28,6 +28,7 @@ function test (print) {
       while (batch.length < 32768) {
         const ri = Math.floor(Math.random() * trades.length)
         const entry = trades[ri]
+        entry[1] = Date.now()
 
         batch.push(JSON.stringify(entry))
 
