@@ -6,32 +6,37 @@ const async = require('async')
 const stats = require('./stats')
 // january 2017, december 2017, october 2018
 const trades = require('./trades-set.json')
-const feed = hypercore('./test') // store data in ./directory
 
-feed.ready(() => {
-  console.log('feed is ready.')
+const argv = process.argv.slice(2)
+createBenchmark(argv[0], argv[1])
 
+function createBenchmark (dir, entries) {
+  const feed = hypercore(dir) // store data in ./directory
+  feed.ready(() => {
+    console.log('feed is ready.')
+    test(feed, entries)
+  })
+}
+
+function test (feed, entries) {
   const print = stats(feed)
-  test(print)
-})
 
-function test (print) {
   const started = Date.now()
-  const tenBillion = 10000000000
   let count = feed.length
 
   async.whilst(
-    function () { return count < tenBillion },
+    function () { return count < entries },
     function (cb) {
       const batch = []
 
       while (batch.length < 32768) {
         const ri = Math.floor(Math.random() * trades.length)
         const entry = trades[ri]
+        entry[1] = Date.now()
 
         batch.push(JSON.stringify(entry))
 
-        if ((count + batch.length) % 50000000 === 0) {
+        if ((count + batch.length) % (entries / 200) === 0) {
           print()
         }
       }
@@ -63,3 +68,5 @@ function test (print) {
     }
   )
 }
+
+module.exports = createBenchmark

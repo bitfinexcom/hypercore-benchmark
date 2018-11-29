@@ -19,6 +19,7 @@ function stats (feed) {
     console.log(n, diff, 'process.cpuUsage()', JSON.stringify(cM))
     console.log(n, diff, 'os.loadavg()', JSON.stringify(cC))
     console.log(n, diff, 'feed.peers.length', feed.peers.length)
+    console.log(n, diff, 'feed.length', feed.length)
 
     last = Date.now()
   }

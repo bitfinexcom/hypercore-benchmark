@@ -15,8 +15,11 @@ then spawn testgroups a 100 clients with `node p2p-noise-swarm.js $testgroup`:
 node p2p-noise-swarm.js a
 ```
 
-## simple write, 10 billion entries
+## simple write, create different sets of data, up to 10 billion entries
 
 ```
-node write.js
+node write.js test-50000000 50000000
+node write.js test-500000000 500000000
+node write.js test-2000000000 2000000000
+node write.js test-10000000000 10000000000
 ```
