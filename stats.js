@@ -11,13 +11,9 @@ function stats (feed) {
     const n = Date.now()
     const diff = n - last
 
-    const cM = process.memoryUsage()
-    const cC = process.cpuUsage()
-    const lA = os.loadavg()
-
-    console.log(n, diff, 'process.memoryUsage()', JSON.stringify(lA))
-    console.log(n, diff, 'process.cpuUsage()', JSON.stringify(cM))
-    console.log(n, diff, 'os.loadavg()', JSON.stringify(cC))
+    console.log(n, diff, 'process.memoryUsage()', JSON.stringify(process.memoryUsage()))
+    console.log(n, diff, 'process.cpuUsage()', JSON.stringify(process.cpuUsage()))
+    console.log(n, diff, 'os.loadavg()', JSON.stringify(os.loadavg()))
     console.log(n, diff, 'feed.peers.length', feed.peers.length)
     console.log(n, diff, 'feed.length', feed.length)
 
