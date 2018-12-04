@@ -20,10 +20,10 @@ function createClients (n) {
   for (let i = 0; i < n; i++) {
     current = current + 1
 
+    createClient(current, testGroup)
+
     if (current === max) {
       break
     }
-
-    createClient(current, testGroup)
   }
 }
