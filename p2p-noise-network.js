@@ -18,14 +18,21 @@ feed.ready(() => {
   }, 4000)
 
   // provide new entries to replicate
-  console.log('writing new entries every few seconds...')
-  writeSampleBatch()
+  writeSampleBatch(true)
 })
 
-function writeSampleBatch () {
+function writeSampleBatch (printInfo) {
+  const interval = 4000
+  const elementsPerSecond = 8000
+  const batchSize = (interval / 1000) * elementsPerSecond
+
+  if (printInfo) {
+    console.log(`writing ${elementsPerSecond} entries every second... (${batchSize} every ${interval}ms)`)
+  }
+
   function _writeSampleBatch (cb) {
     const batch = []
-    while (batch.length < 32768) {
+    while (batch.length < batchSize) {
       const ri = Math.floor(Math.random() * trades.length)
       const entry = trades[ri]
       entry[1] = Date.now()
@@ -41,7 +48,7 @@ function writeSampleBatch () {
   _writeSampleBatch((err) => {
     if (err) throw err
 
-    setTimeout(() => { writeSampleBatch() }, 4000)
+    setTimeout(() => { writeSampleBatch(false) }, 4000)
   })
 }
 
