@@ -4,26 +4,27 @@ const createClient = require('./p2p-noise-client')
 
 const max = 100
 let current = 0
+
 const testGroup = process.argv[2]
 console.log('testGroup:', testGroup)
 
-const inter = setInterval(() => {
-  if (current === max) {
-    clearInterval(inter)
-    return
-  }
+setTimeout(loop, 5000)
+const print = require('./stats')()
 
-  createClients(5)
-}, 4000)
+setInterval(print, 5000)
 
-function createClients (n) {
-  for (let i = 0; i < n; i++) {
-    current = current + 1
+function loop () {
+  if (current >= max) return
 
-    createClient(current, testGroup)
+  createClients(5, function () {
+    setTimeout(loop, 5000)
+  })
+}
 
-    if (current === max) {
-      break
-    }
-  }
+function createClients (n, cb) {
+  current = current + 1
+  createClient(current, testGroup, function () {
+    if (!n || current === max) return cb()
+    createClients(n - 1, cb)
+  })
 }
