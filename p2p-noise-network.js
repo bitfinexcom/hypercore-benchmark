@@ -8,7 +8,7 @@ const { write } = require('length-prefixed-message')
 const stats = require('./stats')
 const trades = require('./trades-set.json')
 
-const feed = hypercore(`./test`)
+const feed = hypercore(process.argv[2] || `./test`)
 feed.ready(() => {
   console.log('feed is ready.')
 

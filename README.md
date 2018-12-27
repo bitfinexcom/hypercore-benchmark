@@ -23,3 +23,15 @@ node write.js test-500000000 500000000
 node write.js test-2000000000 2000000000
 node write.js test-10000000000 10000000000
 ```
+
+## running big benchmarks
+
+If you are running benchmarks with multi billion sized hypercores you might want to
+increase the memory of the Node.js. Memory is compressed internally but sometimes during
+peak performance moments it wants to allocate more
+
+```
+# allow node to use 5GB of memory
+# useful when sharing huuuuge hypercores
+node --max-old-space-size=5000 p2p-noise-swarm.js
+```
