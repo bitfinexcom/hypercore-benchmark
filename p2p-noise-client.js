@@ -12,13 +12,10 @@ function createClient (id = '', testGroup = '', cb) {
     createIfMissing: false
   })
 
-  const then = Date.now()
-
   feed.on('error', () => ready(null))
   feed.on('ready', () => ready(feed))
 
   function ready (feed) {
-    console.log('ready', Date.now() - then)
     const client = noise.connect('a9a5544b217d38cc0165d3fce9381e38464025d26d1e7e38c4ce4a729e73410b')
 
     read(client, (msg) => {
