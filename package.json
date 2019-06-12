@@ -9,10 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "async": "^2.6.1",
-    "hypercore": "^6.20.2",
+    "async": "^3.0.1",
+    "hypercore": "^7.2.1",
     "length-prefixed-message": "^3.0.3",
-    "noise-network": "^1.0.0",
+    "noise-network": "^1.0.2",
     "process-top": "^1.0.0"
   }
 }
